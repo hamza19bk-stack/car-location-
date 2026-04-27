@@ -16,7 +16,8 @@ import {
   Snowflake,
   UserCheck,
   CreditCard,
-  Globe
+  Globe,
+  ShieldCheck
 } from 'lucide-react';
 import { translations, Language } from './translations';
 
@@ -48,7 +49,6 @@ export default function App() {
               <a href="#" className="text-white text-sm font-medium hover:text-brand-primary transition-colors">{t.nav.home}</a>
               <a href="#category" className="text-gray-400 text-sm font-medium hover:text-brand-primary transition-colors">{t.nav.category}</a>
               <a href="#about" className="text-gray-400 text-sm font-medium hover:text-brand-primary transition-colors">{t.nav.aboutUs}</a>
-              <a href="#blog" className="text-gray-400 text-sm font-medium hover:text-brand-primary transition-colors">{t.nav.blog}</a>
               <a href="#contact" className="text-gray-400 text-sm font-medium hover:text-brand-primary transition-colors">{t.nav.contactUs}</a>
             </nav>
 
@@ -119,10 +119,9 @@ export default function App() {
             className="lg:hidden bg-[#0a0a0a] border-b border-white/10 px-4 pt-2 pb-6 space-y-4 shadow-2xl"
           >
             <a href="#" className="block px-3 py-2 text-white font-medium rounded-md">{t.nav.home}</a>
-            <a href="#category" className="block px-3 py-2 text-gray-400 font-medium hover:text-white rounded-md">{t.nav.category}</a>
-            <a href="#about" className="block px-3 py-2 text-gray-400 font-medium hover:text-white rounded-md">{t.nav.aboutUs}</a>
-            <a href="#blog" className="block px-3 py-2 text-gray-400 font-medium hover:text-white rounded-md">{t.nav.blog}</a>
-            <a href="#contact" className="block px-3 py-2 text-gray-400 font-medium hover:text-white rounded-md">{t.nav.contactUs}</a>
+            <a href="#category" className="block px-3 py-2 text-gray-400 font-medium hover:text-white rounded-md" onClick={() => setMobileMenuOpen(false)}>{t.nav.category}</a>
+            <a href="#about" className="block px-3 py-2 text-gray-400 font-medium hover:text-white rounded-md" onClick={() => setMobileMenuOpen(false)}>{t.nav.aboutUs}</a>
+            <a href="#contact" className="block px-3 py-2 text-gray-400 font-medium hover:text-white rounded-md" onClick={() => setMobileMenuOpen(false)}>{t.nav.contactUs}</a>
             <div className="pt-4 flex flex-col gap-3 border-t border-white/10">
               <a href="https://wa.me/212665253565" target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] text-white font-bold px-4 py-3 rounded-full hover:bg-[#22bf5b] transition-colors flex items-center justify-center gap-2">
                 {t.nav.whatsappUs}
@@ -177,12 +176,12 @@ export default function App() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
             >
-              <a href="https://wa.me/212665253565" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto bg-brand-primary text-white font-bold px-8 py-3.5 rounded-full hover:bg-orange-600 transition-colors flex items-center justify-center gap-2">
+              <a href="#category" className="w-full sm:w-auto bg-brand-primary text-white font-bold px-8 py-3.5 rounded-full hover:bg-orange-600 transition-colors flex items-center justify-center gap-2">
                 {t.hero.bookACar} <ArrowRight size={18} className={lang === 'ar' ? 'rotate-180' : ''} />
               </a>
-              <button className="w-full sm:w-auto text-white font-medium px-8 py-3.5 rounded-full border border-white/20 hover:bg-white/10 transition-colors backdrop-blur-sm">
+              <a href="#features" className="w-full sm:w-auto text-white font-medium px-8 py-3.5 rounded-full border border-white/20 hover:bg-white/10 transition-colors backdrop-blur-sm text-center block">
                 {t.hero.howItWorks}
-              </button>
+              </a>
             </motion.div>
           </div>
         </div>
@@ -194,10 +193,14 @@ export default function App() {
           <div className="flex w-max animate-scroll items-center gap-16 md:gap-32 opacity-60 grayscale hover:grayscale-0 transition-opacity duration-300">
             {/* Repeated twice to create the infinite loop effect continuously */}
             {[
-              "Hyundai Tucson", "Volkswagen T-Roc", "Peugeot 208", 
-              "Renault Clio 5", "Hyundai i20", "Citroën C3",
-              "Hyundai Tucson", "Volkswagen T-Roc", "Peugeot 208", 
-              "Renault Clio 5", "Hyundai i20", "Citroën C3"
+              "Hyundai Tucson", "Volkswagen T-Roc", "Mercedes-Benz", 
+              "Renault Clio 5", "Audi A3 Sportback", "Citroën C3 Aircross",
+              "Dacia Sandero", "Volkswagen Touareg", "Peugeot 208 GT",
+              "Renault Clio V", "Hyundai i20", "Can-Am Spyder", "Dacia Logan",
+              "Hyundai Tucson", "Volkswagen T-Roc", "Mercedes-Benz", 
+              "Renault Clio 5", "Audi A3 Sportback", "Citroën C3 Aircross",
+              "Dacia Sandero", "Volkswagen Touareg", "Peugeot 208 GT",
+              "Renault Clio V", "Hyundai i20", "Can-Am Spyder", "Dacia Logan"
             ].map((brand, i) => (
               <span key={i} className={`font-display font-medium tracking-widest text-2xl text-white ${lang === 'ar' ? 'font-sans' : ''}`}>
                 {brand.toUpperCase()}
@@ -208,7 +211,7 @@ export default function App() {
       </section>
 
       {/* Main Content Area - Split between Features and Featured Cars */}
-      <section className="py-24">
+      <section id="features" className="py-24 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 mb-24 lg:grid-cols-2 gap-16 items-center">
@@ -265,7 +268,7 @@ export default function App() {
           </div>
 
           {/* Car Grid Component within the same flow */}
-          <div className="mb-24">
+          <div id="category" className="mb-24 scroll-mt-24">
             <h2 className="text-3xl font-display font-bold text-white mb-10">{t.fleet.title}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {t.cars.map((car, idx) => (
@@ -295,7 +298,7 @@ export default function App() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 bg-[#0a0a0a] border-y border-white/5">
+      <section id="about" className="py-24 bg-[#0a0a0a] border-y border-white/5 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
             <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">{t.testimonials.title}</h2>
@@ -370,7 +373,7 @@ export default function App() {
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
               <img 
-                src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=2000&q=80" 
+                src="https://res.cloudinary.com/ddfazkkij/image/upload/q_auto/f_auto/v1777306807/Gemini_Generated_Image_ljh6r4ljh6r4ljh6_xs7ggl.png" 
                 alt="Cars aligned" 
                 className="w-full h-full object-cover"
               />
@@ -382,16 +385,16 @@ export default function App() {
               <p className="text-gray-300 mb-8 font-light leading-relaxed">
                 {t.cta.subtitle}
               </p>
-              <button className="bg-brand-primary text-white font-bold px-10 py-4 rounded-full hover:bg-orange-600 transition-colors">
+              <a href="#category" className="inline-block bg-brand-primary text-white font-bold px-10 py-4 rounded-full hover:bg-orange-600 transition-colors">
                 {t.cta.button}
-              </button>
+              </a>
             </div>
           </div>
         </div>
       </section>
 
       {/* Map Section */}
-      <section id="location" className="py-24 bg-[#0a0a0a] border-y border-white/5">
+      <section id="contact" className="py-24 bg-[#0a0a0a] border-y border-white/5 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
             <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6">{t.map.title}</h2>
@@ -426,9 +429,6 @@ export default function App() {
             </div>
             
             <div className="flex flex-wrap justify-center gap-8 text-sm">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">{t.footer.company}</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">{t.footer.service}</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">{t.footer.newsletter}</a>
             </div>
           </div>
           
@@ -495,7 +495,7 @@ export default function App() {
                 <h3 className="font-bold text-gray-900 mb-4">{t.modal.requirements}</h3>
                 <div className="bg-gray-50 rounded-2xl p-5 space-y-4 border border-gray-100">
                   {selectedCar.details.requirements.map((req: any, idx: number) => {
-                    const Icon = idx === 0 ? UserCheck : CreditCard;
+                    const Icon = idx === 0 ? UserCheck : idx === 1 ? CreditCard : ShieldCheck;
                     return (
                       <div key={idx} className="flex gap-4">
                         <div className="mt-1">
